@@ -3,6 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ezgy - Your personal music player powered by Google Drive. Stream your music files directly from Google Drive with a sleek, modern interface. Secure, private, and easy to use.">
+    <meta name="keywords" content="music player, Google Drive, streaming, audio player, cloud music">
+    <link rel="canonical" href="https://ezgyapp.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ezgyapp.com/">
+    <meta property="og:title" content="ezgy - Your Personal Music Player">
+    <meta property="og:description" content="Stream your music files directly from Google Drive with ezgy. Secure, private, and easy to use.">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://ezgyapp.com/">
+    <meta property="twitter:title" content="ezgy - Your Personal Music Player">
+    <meta property="twitter:description" content="Stream your music files directly from Google Drive with ezgy. Secure, private, and easy to use.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/LaunchIcon.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/LaunchIcon@2x.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/LaunchIcon@3x.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/LaunchIcon.png">
+    <link rel="shortcut icon" href="icons/LaunchIcon.png">
+    
     <title>ezgy - Your Personal Music Player</title>
     <style>
         * {
@@ -18,13 +41,99 @@
             background: #0a0a0a;
         }
 
+        /* Header Navigation */
+        .header-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(100, 150, 255, 0.2);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-nav .logo-small {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #ffffff;
+        }
+
+        .header-nav .logo-small img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .header-nav .logo-small span {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: rgba(100, 150, 255, 0.9);
+        }
+
+        .header-nav .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .header-nav .nav-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+        }
+
+        .header-nav .nav-links a:hover {
+            color: rgba(100, 150, 255, 0.9);
+            background: rgba(100, 150, 255, 0.1);
+        }
+
+        .header-nav .nav-links a.privacy-link {
+            color: rgba(100, 150, 255, 0.9);
+            font-weight: 500;
+            border: 1px solid rgba(100, 150, 255, 0.3);
+        }
+
+        .header-nav .nav-links a.privacy-link:hover {
+            background: rgba(100, 150, 255, 0.15);
+            border-color: rgba(100, 150, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .header-nav {
+                padding: 12px 20px;
+            }
+
+            .header-nav .nav-links {
+                gap: 15px;
+            }
+
+            .header-nav .nav-links a {
+                font-size: 0.85rem;
+                padding: 6px 12px;
+            }
+
+            .header-nav .logo-small span {
+                font-size: 1rem;
+            }
+        }
+
         .section {
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            padding: 80px 20px;
+            padding: 100px 20px 80px;
             position: relative;
             scroll-snap-align: start;
         }
@@ -90,12 +199,17 @@
             background: linear-gradient(135deg, #0f3460 0%, #16213e 100%);
         }
 
-        /* Screen 3 - Listen */
+        /* Screen 3 - Data & Privacy */
+        .data-privacy {
+            background: linear-gradient(135deg, #16213e 0%, #0f3460 100%);
+        }
+
+        /* Screen 4 - Listen */
         .listen {
             background: linear-gradient(135deg, #1a1a2e 0%, #0f3460 100%);
         }
 
-        /* Screen 4 - Control */
+        /* Screen 5 - Control */
         .control {
             background: linear-gradient(135deg, #16213e 0%, #1a1a2e 100%);
         }
@@ -480,6 +594,72 @@
             animation: fadeInUp 0.8s ease-out;
         }
 
+        /* Data Privacy Section Styles */
+        .privacy-box {
+            background: rgba(100, 150, 255, 0.1);
+            border: 2px solid rgba(100, 150, 255, 0.3);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 800px;
+            text-align: left;
+            backdrop-filter: blur(10px);
+        }
+
+        .privacy-box h3 {
+            color: rgba(100, 150, 255, 0.9);
+            font-size: 1.4rem;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .privacy-box ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .privacy-box li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .privacy-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: rgba(100, 150, 255, 0.9);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .privacy-box .privacy-link-box {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(100, 150, 255, 0.2);
+        }
+
+        .privacy-box .privacy-link-box a {
+            color: rgba(100, 150, 255, 0.9);
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            padding: 12px 24px;
+            border: 2px solid rgba(100, 150, 255, 0.3);
+            border-radius: 8px;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .privacy-box .privacy-link-box a:hover {
+            background: rgba(100, 150, 255, 0.15);
+            border-color: rgba(100, 150, 255, 0.5);
+        }
+
         /* Decorative elements */
         .section::before {
             content: '';
@@ -535,12 +715,26 @@
     </style>
 </head>
 <body>
+    <!-- Header Navigation -->
+    <header class="header-nav">
+        <a href="#welcome" class="logo-small">
+            <img src="icons/LaunchIcon.png" alt="ezgy logo">
+            <span>ezgy</span>
+        </a>
+        <nav class="nav-links">
+            <a href="support.html">Support</a>
+            <a href="terms-of-service.html">Terms</a>
+            <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a>
+        </nav>
+    </header>
+
     <!-- Navigation Dots -->
     <div class="nav-dots">
         <div class="nav-dot active" onclick="scrollToSection(0)"></div>
         <div class="nav-dot" onclick="scrollToSection(1)"></div>
         <div class="nav-dot" onclick="scrollToSection(2)"></div>
         <div class="nav-dot" onclick="scrollToSection(3)"></div>
+        <div class="nav-dot" onclick="scrollToSection(4)"></div>
     </div>
 
     <!-- Screen 1 - Welcome -->
@@ -611,8 +805,12 @@
             </div>
             
             <p class="section-description">
-                ezgy securely connects to your Google Drive to find and organize your music files.<br>
-                <strong>Your data stays yours — always private.</strong> We only read your music files, nothing else.
+                ezgy securely connects to your Google Drive to find and organize your music files using Google's OAuth 2.0 authentication system.<br>
+                <strong>We request read-only access to your Google Drive</strong> - this means we can only view and stream your music files. We cannot modify, delete, or share any of your files.<br>
+                <strong>Your data stays yours — always private.</strong> We only access your music files, nothing else. No documents, photos, or other personal files are ever accessed.
+            </p>
+            <p class="section-description" style="margin-top: 20px;">
+                <a href="privacy-policy.html" style="color: rgba(100, 150, 255, 0.9); text-decoration: none; font-weight: 500; border-bottom: 1px solid rgba(100, 150, 255, 0.3);">Learn more about our privacy practices →</a>
             </p>
             
             <div class="connection-flow">
@@ -647,7 +845,41 @@
         </div>
     </section>
 
-    <!-- Screen 3 - Listen -->
+    <!-- Screen 3 - Data & Privacy -->
+    <section class="section data-privacy" id="data-privacy">
+        <div class="container">
+            <h2 class="section-title">Your Data, Your Control</h2>
+            <div class="divider"></div>
+            
+            <div class="privacy-box">
+                <h3>Transparent Data Usage</h3>
+                <p class="section-description" style="text-align: center; margin-bottom: 30px; opacity: 0.95;">
+                    We believe in complete transparency about how we access and use your data. Here's exactly what we request and why:
+                </p>
+                
+                <ul>
+                    <li><strong>What we request:</strong> Read-only access to your Google Drive files</li>
+                    <li><strong>Why we need it:</strong> To scan for music files (MP3, FLAC, AAC, OGG, WAV, M4A) and stream them directly to your device</li>
+                    <li><strong>What we access:</strong> Only music files in your Google Drive. We scan file metadata (title, artist, album) to organize your library</li>
+                    <li><strong>What we DON'T access:</strong> Your documents, photos, spreadsheets, or any other non-music files. We cannot see, modify, delete, or share any of your files</li>
+                    <li><strong>How we use it:</strong> Music files are streamed directly from Google Drive to your device. We do not download, store, or cache your music files on our servers</li>
+                    <li><strong>Data storage:</strong> Any cached metadata (like playlists) is stored locally on your device only and can be cleared anytime</li>
+                    <li><strong>Your control:</strong> You can revoke Google Drive access at any time through your Google Account settings → Security → Third-party apps with account access</li>
+                    <li><strong>Security:</strong> All connections are encrypted using HTTPS/TLS protocols. We use Google's secure OAuth 2.0 authentication system</li>
+                </ul>
+                
+                <div class="privacy-link-box">
+                    <a href="privacy-policy.html">Read Our Full Privacy Policy</a>
+                </div>
+            </div>
+            
+            <p class="section-description" style="margin-top: 40px;">
+                Your privacy is our priority. We only request the minimum permissions necessary to provide you with a seamless music streaming experience from your Google Drive.
+            </p>
+        </div>
+    </section>
+
+    <!-- Screen 4 - Listen -->
     <section class="section listen" id="listen">
         <div class="container">
             <h2 class="section-title">Hit play. Feel the edge.</h2>
@@ -669,7 +901,7 @@
         </div>
     </section>
 
-    <!-- Screen 4 - Control -->
+    <!-- Screen 5 - Control -->
     <section class="section control" id="control">
         <div class="container">
             <h2 class="section-title">Your sound. Your rules.</h2>
