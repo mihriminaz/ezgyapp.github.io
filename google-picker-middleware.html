@@ -1207,18 +1207,20 @@
 
         const mimeTypeQuery = audioMimeTypes.map(mt => `mimeType='${mt}'`).join(' or ');
         
-        // For root (My Drive), search all files owned by the user
+        // Build query for audio files
+        // For root, search all accessible audio files (includes My Drive and Shared with Me)
         // For specific folders, search only files in that folder
         let query;
         if (folderId === 'root') {
-          // Search all audio files in My Drive (owned by user)
-          query = `(${mimeTypeQuery}) and trashed=false and 'me' in owners`;
+          // Search all accessible audio files (removed 'me' in owners to include shared files)
+          query = `(${mimeTypeQuery}) and trashed=false`;
         } else {
           // Search audio files in specific folder
           query = `(${mimeTypeQuery}) and '${folderId}' in parents and trashed=false`;
         }
 
-        const baseUrl = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(query)}&fields=nextPageToken,files(id,name,mimeType,parents)&pageSize=1000`;
+        // Include Shared Drives support in the API request
+        const baseUrl = `https://www.googleapis.com/drive/v3/files?q=${encodeURIComponent(query)}&fields=nextPageToken,files(id,name,mimeType,parents)&pageSize=1000&supportsAllDrives=true&includeItemsFromAllDrives=true`;
 
         let allFiles = [];
         let nextPageToken = null;
